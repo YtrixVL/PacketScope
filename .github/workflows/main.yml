@@ -1,0 +1,92 @@
+name: Build PacketScope
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpcap-dev
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Windows app
+        if: runner.os == 'Windows'
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name PacketScope main.py
+
+      - name: Build macOS app
+        if: runner.os == 'macOS'
+        run: |
+          pyinstaller --noconfirm --windowed --name PacketScope main.py
+
+      - name: Build Linux app
+        if: runner.os == 'Linux'
+        run: |
+          pyinstaller --noconfirm --onedir --windowed --name PacketScope main.py
+
+      - name: Create Windows archive
+        if: runner.os == 'Windows'
+        run: |
+          Compress-Archive -Path dist\PacketScope -DestinationPath PacketScope-windows.zip
+
+      - name: Create macOS archive
+        if: runner.os == 'macOS'
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent dist/PacketScope.app PacketScope-macos.zip
+          hdiutil create -volname "PacketScope" -srcfolder "dist/PacketScope.app" -ov -format UDZO "PacketScope-macos.dmg"
+
+      - name: Create Linux archive
+        if: runner.os == 'Linux'
+        run: |
+          tar -czvf PacketScope-linux.tar.gz -C dist PacketScope
+
+      - name: Upload Windows artifact
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: PacketScope-windows
+          path: PacketScope-windows.zip
+
+      - name: Upload macOS artifact
+        if: runner.os == 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: PacketScope-macos
+          path: |
+            PacketScope-macos.zip
+            PacketScope-macos.dmg
+
+      - name: Upload Linux artifact
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: PacketScope-linux
+          path: PacketScope-linux.tar.gz
