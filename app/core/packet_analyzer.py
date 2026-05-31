@@ -10,10 +10,6 @@ from app.models.packet_info import PacketInfo
 
 
 class PacketAnalyzer:
-    """
-    Анализирует пакеты Scapy и преобразует их в удобный формат для GUI.
-    """
-
     MAX_PAYLOAD_PREVIEW = 512
 
     TCP_PORT_PROTOCOLS = {
@@ -93,11 +89,6 @@ class PacketAnalyzer:
         return "Unknown"
 
     def get_protocol(self, packet) -> str:
-        """
-        Определяет протокол. Сначала проверяются явные слои,
-        затем популярные прикладные протоколы по портам.
-        """
-
         if packet.haslayer(DNS):
             return "DNS"
 

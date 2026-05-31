@@ -2,10 +2,6 @@ from collections import Counter
 
 
 class TrafficStatistics:
-    """
-    Считает статистику по списку PacketInfo.
-    """
-
     def calculate(self, packet_infos):
         protocols = Counter()
         ip_counter = Counter()

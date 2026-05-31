@@ -5,11 +5,6 @@ from scapy.all import sniff
 
 
 class PacketSniffer:
-    """
-    Класс отвечает за захват сетевых пакетов.
-    Захват выполняется в отдельном потоке, чтобы интерфейс приложения не зависал.
-    """
-
     def __init__(self):
         self.is_running = False
         self.thread: Optional[threading.Thread] = None

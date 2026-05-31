@@ -2,11 +2,6 @@ from collections import Counter
 
 
 class SecurityAnalyzer:
-    """
-    Простой модуль выявления подозрительной активности.
-    Это не полноценная IDS, а учебный анализатор аномалий.
-    """
-
     SUSPICIOUS_PORTS = {
         23: "TELNET",
         2323: "TELNET-ALT",

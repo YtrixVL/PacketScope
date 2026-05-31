@@ -2,11 +2,6 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout, QTextEdit, QTabWidget
 
 
 class PacketDetails(QWidget):
-    """
-    Панель подробного просмотра пакета.
-    Содержит вкладки: структура, ASCII, HEX, Raw.
-    """
-
     def __init__(self):
         super().__init__()
 

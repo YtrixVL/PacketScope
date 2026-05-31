@@ -2,10 +2,6 @@ import csv
 
 
 class ReportExporter:
-    """
-    Экспортирует результаты анализа в CSV и TXT.
-    """
-
     def export_to_csv(self, packet_infos, file_path: str):
         with open(file_path, "w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)

@@ -2,10 +2,6 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit
 
 
 class StatisticsPanel(QWidget):
-    """
-    Панель статистики трафика, топ IP, DNS-доменов и предупреждений.
-    """
-
     def __init__(self):
         super().__init__()
 

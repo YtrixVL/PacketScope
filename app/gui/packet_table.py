@@ -4,11 +4,6 @@ from PyQt6.QtGui import QColor, QBrush
 
 
 class PacketTable(QTableWidget):
-    """
-    Таблица для отображения списка перехваченных пакетов.
-    Поддерживает цветовую подсветку строк по протоколам.
-    """
-
     def __init__(self):
         super().__init__()
 

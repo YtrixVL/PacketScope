@@ -1,9 +1,4 @@
 class PacketFilter:
-    """
-    Фильтрует уже захваченные пакеты по текстовому запросу.
-    Поиск выполняется по номеру, времени, IP, протоколу, размеру и описанию.
-    """
-
     def filter_packet_infos(self, packet_infos, query: str):
         if not query:
             return packet_infos

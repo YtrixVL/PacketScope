@@ -2,11 +2,6 @@ from scapy.utils import wrpcap, rdpcap, PcapNgWriter
 
 
 class CaptureStorage:
-    """
-    Класс отвечает за сохранение и загрузку файлов захвата.
-    Поддерживаются форматы PCAP и PCAPNG.
-    """
-
     def save_to_pcap(self, packets, file_path: str):
         if not packets:
             raise ValueError("Нет пакетов для сохранения")

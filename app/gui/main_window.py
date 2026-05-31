@@ -215,10 +215,6 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage("Захват запущен")
 
     def normalize_bpf_filter(self, bpf_filter: str) -> str:
-        """
-        Преобразует простые пользовательские слова в корректные BPF-фильтры.
-        """
-
         if not bpf_filter:
             return ""
 
